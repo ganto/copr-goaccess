@@ -1,10 +1,13 @@
+%global commit      197f4718060eab92babab6e5145997d49e0332ef
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Name:           goaccess
-Version:        1.2
-Release:        1%{?dist}
+Version:        1.2.1
+Release:        0.1.git%{shortcommit}%{?dist}
 Summary:        Real-time web log analyzer and interactive viewer
 License:        GPLv2+
 URL:            https://goaccess.io/
-Source0:        http://tar.goaccess.io/%{name}-%{version}.tar.gz
+Source0:        https://github.com/allinurl/goaccess/archive/%{commit}/goaccess-%{shortcommit}.tar.gz
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc
@@ -13,6 +16,7 @@ BuildRequires:  ncurses-devel
 BuildRequires:  tokyocabinet-devel
 BuildRequires:  zlib-devel
 BuildRequires:  bzip2-devel
+BuildRequires:  gettext-devel
 
 %description
 GoAccess is a real-time web log analyzer and interactive viewer that runs in a
@@ -54,7 +58,7 @@ not limited to:
 * W3C format (IIS).
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{commit}
 # Prevent flags being overridden again and again.
 #sed -i 's|-pthread|$CFLAGS \0|' configure.ac
 sed -i '/-pthread/d' configure.ac
@@ -66,13 +70,13 @@ autoreconf -fiv
 
 %install
 %make_install
+%find_lang %{name}
 
-%files
+%files -f %{name}.lang
 %license COPYING
 %config(noreplace) %{_sysconfdir}/%{name}.conf
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
-%{_docdir}/%{name}
 
 %changelog
 * Sat Jul 22 2017 Eduardo Echeverria <echevemaster@gmail.com> - 1.2-1
