@@ -79,6 +79,9 @@ autoreconf -fiv
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Dec 14 2017 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> 1.2.1-0.1.git197f471
+- Update to master commit 197f471
+
 * Sat Jul 22 2017 Eduardo Echeverria <echevemaster@gmail.com> - 1.2-1
 - Update to 1.2
 
