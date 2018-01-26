@@ -1,9 +1,10 @@
-%global commit      197f4718060eab92babab6e5145997d49e0332ef
+%global commit      5ec315579a04f953f0773d3a51006ab848e46eed
+%global commitdate  20180126
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           goaccess
 Version:        1.2.1
-Release:        0.1.git%{shortcommit}%{?dist}
+Release:        0.2.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Real-time web log analyzer and interactive viewer
 License:        GPLv2+
 URL:            https://goaccess.io/
