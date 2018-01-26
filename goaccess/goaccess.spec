@@ -80,6 +80,9 @@ autoreconf -fiv
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 26 2018 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> 1.2.1-0.2.20180126git5ec3155
+- Update to master commit 5ec3155
+
 * Thu Dec 14 2017 Reto Gantenbein <reto.gantenbein@linuxmonk.ch> 1.2.1-0.1.git197f471
 - Update to master commit 197f471
 
