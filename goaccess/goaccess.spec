@@ -1,10 +1,10 @@
-%global commit      5ec315579a04f953f0773d3a51006ab848e46eed
-%global commitdate  20180126
+%global commit      fd8186cdb7540f113abdf2b0aacdf58394c03c01
+%global commitdate  20190507
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           goaccess
-Version:        1.2.1
-Release:        0.2.%{commitdate}git%{shortcommit}%{?dist}
+Version:        1.3
+Release:        0.1.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Real-time web log analyzer and interactive viewer
 License:        GPLv2+
 URL:            https://goaccess.io/
@@ -12,8 +12,9 @@ Source0:        https://github.com/allinurl/goaccess/archive/%{commit}/goaccess-
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc
-BuildRequires:  GeoIP-devel
+BuildRequires:  libmaxminddb-devel
 BuildRequires:  ncurses-devel
+BuildRequires:  openssl-devel
 BuildRequires:  tokyocabinet-devel
 BuildRequires:  zlib-devel
 BuildRequires:  bzip2-devel
@@ -66,7 +67,7 @@ sed -i '/-pthread/d' configure.ac
 
 %build
 autoreconf -fiv
-%configure --enable-debug --enable-geoip --enable-utf8 --enable-tcb=btree --with-getline
+%configure --enable-debug --enable-geoip=mmdb --enable-utf8 --enable-tcb=btree --with-getline --with-openssl
 %make_build
 
 %install
@@ -75,7 +76,9 @@ autoreconf -fiv
 
 %files -f %{name}.lang
 %license COPYING
-%config(noreplace) %{_sysconfdir}/%{name}.conf
+%doc ChangeLog README
+%config(noreplace) %{_sysconfdir}/goaccess/%{name}.conf
+%config(noreplace) %{_sysconfdir}/goaccess/browsers.list
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 
